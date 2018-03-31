@@ -1,38 +1,40 @@
 import React from 'react';
-import './app.css'
 
 class App extends React.Component {
 
-	constructor () {
-		super();
-		this.state = {
-			input: '/* add here your jsx',
-			output: '',
-			err: ''
-		}
-	}
-
-	update (e) {
-		let code = e.target.value;
-		try {
-			this.setState({
-				output: window.Babel.transform(code, {presets: ['es2015', 'react']}).code, err: ''
-			})
-		} catch (e) {
-			this.setState({err: e.message})
-		}
-	}
-
 	render(){
 		return (
+			<Button>
+				<button value="A">A</button>
+				<button value="B">B</button>
+				<button value="C">C</button>
+			</Button>
+		)
+	}
+}
+
+class Button extends React.Component {
+	constructor () {
+		super();
+		this.state = {selected: 'None'}
+	}
+
+	selectItem(selected) {
+		this.setState({selected})
+	}
+
+	render () {
+		let fn = child =>
+			React.cloneElement(child, {
+				onClick: this.selectItem.bind(this, child.props.value)
+			});
+
+		let items = React.Children.map(this.props.children, fn);
+
+		return (
 			<div>
-				<header>{this.state.err}</header>
-				<div className="container">
-					<textarea onChange={this.update.bind(this)}
-						defaultValue={this.state.input}>
-					</textarea>
-					<pre>{this.state.output}</pre>
-				</div>
+				<h2>You have selected: {this.state.selected}</h2>
+				{items}
 			</div>
 		)
 	}
