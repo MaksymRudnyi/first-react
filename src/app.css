@@ -27,7 +27,7 @@ pre, textarea {
     width: 50%;
     font-family:monospace;
     font-size: 28px;
-    padding:0;
+    padding: 10px;
 }
 
 textarea:focus {
