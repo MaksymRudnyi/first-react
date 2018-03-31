@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 class App extends React.Component {
 	constructor () {
@@ -17,22 +16,14 @@ class App extends React.Component {
     render () {
         return (
 			<div>
-				<input type="text" onChange={this.update.bind(this)}/>
 				<h1>{this.state.txt} - {this.state.cat}</h1>
+				<Widget update={this.update.bind(this)} />
 			</div>
 		)
     }
 }
 
-App.propTypes = {
-	txt: PropTypes.string,
-	cat: PropTypes.number.isRequired
-};
-
-App.defaultProps = {
-	txt: "default text"
-};
-
-//const App = () => <h2>HI</h2>
+const Widget = (props) =>
+	<input type="text" onChange={props.update} />
 
 export default App;
